@@ -17,7 +17,7 @@ function convertToRegex(str: string) {
   return new RegExp(
     str
       .split("")
-      .map((ch) => CHARMAP[ch])
+      .map((ch: string) => CHARMAP[ch as "#" | "." | "?"])
       .join(""),
     "g"
   );
@@ -36,25 +36,7 @@ function answer1() {
   );
 }
 
-function answer2() {
-  const unfoldedData: [string, number[]] = data.map(([fRecord, fSprings]) => {
-    const record = new Array(5).fill(fRecord).join("?");
-    const springs = new Array(5).fill(fSprings).flat();
-    return [record, springs];
-  });
-  const optionsPerLine = unfoldedData.map(([record, springs]) => {
-    const options = createArrangements(record, springs);
-    return options.length;
-  });
-
-  console.log(
-    "answer part 2",
-    optionsPerLine.reduce((a, b) => a + b)
-  );
-}
-
 answer1();
-answer2();
 
 function generateCombinations(
   maxValue: number,
